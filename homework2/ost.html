@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《与凤行》影视原声</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: linear-gradient(to right,black,darkred);
+}
+body.background {
+  background-image: linear-gradient(to right,darkblue,black);
+}
+/* 去掉单选按钮 */
+input[type=radio] {
+  display: none;
+}
+
+.card {
+  position: absolute;
+  width: 60%;
+  height: 120%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  transition: transform 0.4s ease;
+  cursor: pointer;
+}
+
+.shell {
+  width: 100%;
+  max-width: 800px;
+  max-height: 550px;
+  height: 100%;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cards {
+  position: relative;
+  width: 100%;
+  height: 120%;
+  margin-bottom: 60px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+    #item-1:checked ~ .cards #song-1,
+    #item-2:checked ~ .cards #song-2,
+    #item-3:checked ~ .cards #song-3,
+    #item-4:checked ~ .cards #song-4,
+    #item-5:checked ~ .cards #song-5 {
+      transform: translatex(0) scale(1);
+      opacity: 1;
+      z-index: 4;
+    }
+
+    #item-1:checked ~ .cards #song-2,
+    #item-2:checked ~ .cards #song-3,
+    #item-3:checked ~ .cards #song-4,
+    #item-4:checked ~ .cards #song-5,
+    #item-5:checked ~ .cards #song-1 {
+      transform: translatex(40%) scale(0.8);
+      opacity: 0.8;
+      z-index: 3;
+    }
+
+    #item-1:checked ~ .cards #song-3,
+    #item-2:checked ~ .cards #song-4,
+    #item-3:checked ~ .cards #song-5,
+    #item-4:checked ~ .cards #song-1,
+    #item-5:checked ~ .cards #song-2 {
+      transform: translatex(80%) scale(0.4);
+      opacity: 0.3;
+      z-index: 2;
+    }
+    #item-1:checked ~ .cards #song-4,
+    #item-2:checked ~ .cards #song-5,
+    #item-3:checked ~ .cards #song-1,
+    #item-4:checked ~ .cards #song-2,
+    #item-5:checked ~ .cards #song-3,{
+      transform: translatex(0) scale(0.8);
+      opacity: 0.8;
+      z-index: 1;
+    }
+    #item-1:checked ~ .cards #song-5,
+    #item-2:checked ~ .cards #song-1,
+    #item-3:checked ~ .cards #song-2,
+    #item-4:checked ~ .cards #song-3,
+    #item-5:checked ~ .cards #song-4 {
+      transform: translatex(-40%) scale(0.8);
+      opacity: 0.3;
+      z-index: 0;
+    }
+/* 音乐播放器 */
+.player {
+  background-color: #fff;
+  border-radius: 8px;
+  width: 520px;
+  padding:20px;
+  margin-top: 20px;
+  box-shadow: 0px 2px 10px rgba(40, 40, 40, 0.5);
+}
+.title{
+  font:700 17px '';
+}
+.information {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  height: 42px;
+  overflow: hidden;
+}
+.info-area {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 50px;
+  transition: transform 0.4s ease-in;
+}
+.song-info {
+  width: calc(100% - 50px);
+  display: block;
+}
+.Subheading {
+  display: flex;
+  color: darkred;
+  font-size: 10px;
+}
+.time {
+  margin-left: auto;
+}
+
+
+/* 每次点击图片时，对应的歌曲列表就会向下移动 */
+#item-1:checked ~ .player #test {
+  transform: translateY(0);
+}
+
+#item-2:checked ~ .player #test {
+  transform: translateY(-42px);
+}
+
+#item-3:checked ~ .player #test {
+  transform: translateY(-83px);
+}
+#item-4:checked ~ .player #test {
+  transform: translateY(-120px);
+}
+#item-5:checked ~ .player #test {
+  transform: translateY(-160px);
+}
+
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <input type="radio" name="music" id="item-1" checked>
+        <input type="radio" name="music" id="item-2">
+        <input type="radio" name="music" id="item-3">
+        <input type="radio" name="music" id="item-4">
+        <input type="radio" name="music" id="item-5">
+      <div class="cards">
+        <label class="card" for="item-1" id="song-1">
+          <img src="img/炽心.png">
+        </label>
+        <label class="card" for="item-2" id="song-2">
+          <img src="img/世世.png">
+        </label>
+        <label class="card" for="item-3" id="song-3">
+          <img src="img/不知返.png">
+        </label>
+        <label class="card" for="item-4" id="song-4">
+          <img src="img/如初.png">
+        </label>
+        <label class="card" for="item-5" id="song-5">
+          <img src="img/碧苍.png">
+        </label>
+      </div>
+      <!-- 播放器 -->
+      <div class="player">
+        <div class="information">
+          <div>
+            <img src="img/play2.png" style="width:40px;margin-top: 5px;">
+          </div>
+          <div class="info-area" id="test">
+            <label class="song-info" id="song-info-1">
+              <div class="title">炽心「凤行世上」</div>
+              <div class="Subheading">
+                <div class="singer">希林娜依高</div>
+                <div class="time">3:35</div>
+              </div>
+            </label>
+            <label class="song-info" id="song-info-2">
+              <div class="title">世世「铭刻入骨」</div>
+              <div class="Subheading">
+                <div class="singer">刘宇宁</div>
+                <div class="time">4:12</div>
+              </div>
+            </label>
+            <label class="song-info" id="song-info-3">
+              <div class="title">不知返「俗世清梦」</div>
+              <div class="Subheading">
+                <div class="singer">王赫野</div>
+                <div class="time">4:13</div>
+              </div>
+            </label>
+            <label class="song-info" id="song-info-4">
+              <div class="title">如初「山河共鉴」</div>
+              <div class="Subheading">
+                <div class="singer">张碧晨</div>
+                <div class="time">3:48</div>
+              </div>
+            </label>
+            <label class="song-info" id="song-info-5">
+              <div class="title">碧苍「碧海苍穹」</div>
+              <div class="Subheading">
+                <div class="singer">李佳薇</div>
+                <div class="time">3:49</div>
+              </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <!-- 音乐播放 -->
+    <section style="text-align: right;color:white">
+      <div class="title">炽心「凤行世上」</div>
+      <div class="singer">希林娜依高</div>
+      <audio controls>
+      <source src="img/炽心.mp3" type="audio/mpeg">
+      </audio>
+
+        <div class="title">世世「铭刻入骨」</div>
+        <div class="singer">刘宇宁</div>
+        <audio controls>
+        <source src="img/世世.mp3" type="audio/mpeg">
+        </audio>
+
+        <div class="title">不知返「俗世清梦」</div>
+        <div class="singer">王赫野</div>
+        <audio controls>
+        <source src="img/不知返.mp3" type="audio/mpeg">
+        </audio>
+
+        <div class="title">如初「山河共鉴」</div>
+        <div class="singer">张碧晨</div>
+        <audio controls>
+        <source src="img/如初.mp3" type="audio/mpeg">
+        </audio>
+
+        <div class="title">碧苍「碧海苍穹」</div>
+        <div class="singer">李佳薇</div>
+        <audio controls>
+        <source src="img/碧苍.mp3" type="audio/mpeg">
+        </audio>
+   </section>
+
+</body>
+</html>
